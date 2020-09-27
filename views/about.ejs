@@ -2,11 +2,9 @@
 <html>
   <head>
     <title><%= title %></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Do you want to know me better? Check this page out!">
-    <meta name="keywords" content="nodejs, expressjs, ejs, design, github">
-    <meta name="author" content="Amir Ghahremani">
+    
+    <!-- Meta tag for SEO -->
+    <% include partials/meta_seo %>
     
     <!-- Favicon -->
     <% include partials/favicon %>
@@ -23,72 +21,7 @@
     <% include partials/navbar %>
 
     <!-- About-->
-    <section class="page-section" id="about">
-      <div class="container">
-        <div class="text-center">
-          <h2 class="section-heading text-uppercase">MY LIFE</h2>
-          <h3 class="section-subheading text-muted">Full immersion into my life, education and professional work</h3>
-        </div>
-        <ul class="timeline">
-          <li>
-            <div class="timeline-image"><img class="rounded-circle img-fluid" src="/assets/images/highschool.jpg" alt="highschool" /></div>
-            <div class="timeline-panel">
-              <div class="timeline-heading">
-                <h4>2014-2019</h4>
-                <h4 class="subheading">High School</h4>
-              </div>
-              <div class="timeline-body">
-                <p class="text-muted">
-                  I got my diploma with B+ overall grade.
-                  Currently studying Software Engineering Technology (3409) in Centennial college 
-                  and will get Advance Diploma in this program on 2022.
-                </p>
-              </div>
-            </div>
-          </li>
-          <li class="timeline-inverted">
-            <div class="timeline-image"><img class="rounded-circle img-fluid" src="/assets/images/manager.jpg" alt="manager" /></div>
-            <div class="timeline-panel">
-              <div class="timeline-heading">
-                <h4>2019/6/15 – 2019/10/20</h4>
-                <h4 class="subheading">Manager Assistant</h4>
-              </div>
-              <div class="timeline-body">
-                <p class="text-muted">
-                  I was the manager assistant in hero certified burgers 
-                  and taking care of the manager and boss’s works when they weren’t at store and working as cashier when they were there.
-                </p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="timeline-image"><img class="rounded-circle img-fluid" src="/assets/images/e-commerce.jpg" alt="e-commerce" /></div>
-            <div class="timeline-panel">
-              <div class="timeline-heading">
-                <h4>2020/1/10 – NOW</h4>
-                <h4 class="subheading">E-Commerce</h4>
-              </div>
-              <div class="timeline-body">
-                <p class="text-muted">
-                  Design arts for Amazon’s print on demand service and sell products in drop shipping way.
-                </p>
-              </div>
-            </div>
-          </li>
-          <li class="timeline-inverted">
-            <div class="timeline-image">
-              <h4>
-                Go To
-                <br />
-                The Next Level
-                <br />
-                With Me!!
-              </h4>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </section>
+    <% include partials/timeline_aboutPage %>
 
     <!-- Footer-->
     <% include partials/footer %>
