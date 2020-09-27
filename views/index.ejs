@@ -8,43 +8,25 @@
     <meta name="keywords" content="nodejs, expressjs, ejs, design, github">
     <meta name="author" content="Amir Ghahremani">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/images/site.webmanifest">
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <!-- Favicon -->
+    <% include partials/favicon %>
 
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <% include partials/google_fonts%>
 
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body id="page-top">
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="/"><img src="/images/logo.png" alt="" /></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars ml-1"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/about">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/contact">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+
+    <!-- Navbar -->
+    <% include partials/navbar %>
+
     <!-- Masthead -->
     <header class="masthead">
         <div class="container">
             <div class="masthead-subheading" draggable="false">Welcome To My Portfolio!</div>
-            <div class="masthead-heading text-uppercase" draggable="false">It's Nice To Meet You</div>
+            <div class="masthead-heading text-uppercase" draggable="false">ALWAYS READY TO THE NEXT LEVEL</div>
             <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/about">Know me</a>
         </div>
     </header>
@@ -56,42 +38,16 @@
                 <div class="col-lg-8 text-center">
                     <h2 class="text-white mt-0" draggable="false">MISSION</h2>
                     <hr class="divider light my-4">
-                    <p class="text-white mb-1" draggable="false">Help you to create a valuable product ors brand that will be able to create an emotional connection with your customers. Togheter we can create something valuable rather than just think about the profit.</p>
+                    <p class="text-white mb-1" draggable="false">Help you to create a valuable product or brands that will be able to create an emotional connection with your customers. Togheter we can create something valuable rather than just think about the profit.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer-->
-    <footer class="footer py-4">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4 text-lg-left">Copyright © Your Website 2020</div>
-                <div class="col-lg-4 my-3 my-lg-0">
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                <div class="col-lg-4 text-lg-right">
-                    <a class="mr-3" href="#!">Privacy Policy</a>
-                    <a href="#!">Terms of Use</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer -->
+    <% include partials/footer %>
 
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-    <!-- Third party plugin JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <!-- Contact form JS-->
-    <script src="assets/mail/jqBootstrapValidation.js"></script>
-    <script src="assets/mail/contact_me.js"></script>
-    <!-- Core theme JS-->
-    <script src="/javascripts/script.js"></script>
-</body>
-
+    <!-- JS scripts -->
+    <% include partials/scripts %>
+  </body>
 </html>
