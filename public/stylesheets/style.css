@@ -862,6 +862,28 @@ header.masthead .masthead-heading {
   }
 }
 
+.info-header, .form-header {
+  margin: 2.5rem 0 2.5rem 0;
+}
+
+.info-header {
+  margin-top: 7.5rem;
+}
+
+.table {
+  width: 100%;
+}
+
+#textarea {
+  resize: none;
+  height: 12.5rem;
+}
+
+form button {
+  width: 100%;
+  height: 4rem;
+}
+
 .footer {
   text-align: center;
   font-size: 0.9rem;
