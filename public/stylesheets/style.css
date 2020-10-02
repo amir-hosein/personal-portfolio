@@ -464,11 +464,12 @@ hr {
   margin-bottom: 4rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 300px) {
   section {
-    padding: 9rem 0;
+    padding: 7.5rem 0;
   }
 }
+
 ::-moz-selection {
   background: var(--blue);
   text-shadow: none;
