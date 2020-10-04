@@ -1,3 +1,9 @@
+/*
+  File name: contact.js
+  Student: Amir Ghahremani
+  Student id: 301073379
+  Date: 03/10/2020
+*/
 const send_btn = document.getElementById("send")
 
 send_btn.addEventListener("click", () => {
