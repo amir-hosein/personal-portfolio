@@ -11,11 +11,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const homeRouter = require('./routes/index');
-const aboutRouter = require('./routes/about');
-const projectsRouter = require('./routes/projects');
-const servicesRouter = require('./routes/services');
-const contactRouter = require('./routes/contact');
+const indexRouter = require('./routes/index');
 
 const app = express();
 
@@ -23,17 +19,15 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// using middleware (created by express-generator)
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', homeRouter);
-app.use('/about', aboutRouter);
-app.use('/projects', projectsRouter);
-app.use('/services', servicesRouter);
-app.use('/contact', contactRouter);
+// define all routes
+app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
