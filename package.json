@@ -2,6 +2,7 @@
   "name": "personal-portfolio",
   "version": "0.0.0",
   "private": true,
+  "main": "./bin/www",
   "scripts": {
     "start": "nodemon ./bin/www"
   },
@@ -15,5 +16,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }
