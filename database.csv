@@ -1,5 +1,5 @@
 ContactName, ContactNumber, EmailAddress, Password
-Admin, 0, 0, admin
+test, 0, 0, test
 John, 123, john
 Sarah, 1234, test
 Theodore, 1234, test
