@@ -13,42 +13,11 @@ const contactToEdit = {};
 
 edit_btns.forEach(btn => {
   btn.addEventListener('click', () => {
-    const row = btn.parentNode.parentNode.parentNode;
+    const row = btn.parentNode.parentNode;
     const data = [...row.children];
     contactToEdit.name = data[0].innerHTML,
-    contactToEdit.number = data[1].innerHTML,
-    contactToEdit.email = data[2].innerHTML
+    window.location.href = `./business_contact_list/${contactToEdit.name}`;
   })
-})
-
-update_btn.addEventListener('click', () => {
-  fetch('/users/business_contact_list', {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      ...contactToEdit,
-      newName: document.querySelector('input[name=name]').value,
-      newNumber: document.querySelector('input[name="number"]').value,
-      newEmail: document.querySelector('input[name="email"]').value
-    })
-  })
-    .then(() => {
-      const row = update_btn.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-      const data = [...row.children];
-      data[0].innerHTML = document.querySelector('input[name=name]').value;
-      data[1].innerHTML = document.querySelector('input[name=number]').value;
-      data[2].innerHTML = document.querySelector('input[name=email]').value;
-      document.querySelectorAll('.modal.fade').forEach(modal => {
-        modal.classList.remove('show');
-        modal.style.display = 'none'
-      })
-      document.querySelectorAll('.modal-backdrop').forEach(modal => {
-        modal.classList.remove('show');
-      })
-    })
-    .catch(console.error)
 })
 
 delete_btns.forEach(btn => {
@@ -56,19 +25,17 @@ delete_btns.forEach(btn => {
     const row = btn.parentNode.parentNode;
     const data = [...row.children];
     const body = {
-      name: data[0].innerHTML,
-      number: data[1].innerHTML,
-      email: data[2].innerHTML
+      username: data[0].innerHTML,
     }
 
-    fetch('/users/business_contact_list', {
+    fetch('/user/business_contact_list', {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
     })
-      .then()
+      .then(() => console.log('delete'))
       .catch(console.error)
     
     row.parentNode.removeChild(row);

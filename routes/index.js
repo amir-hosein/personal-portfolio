@@ -7,136 +7,108 @@
 
 const express = require('express');
 const router = express.Router();
-const createError = require('http-errors');
-const { promisify } = require('util');
-const { writeFile, readFile } = require('fs');
-const { EOL } = require('os');
 
-const writeFilePromise = promisify(writeFile);
-const readFilePromise = promisify(readFile);
+const { hash, User } = require('../utils')
 
-/* Credentials*/
-const user = {};
+let logged = false;
 
-/* Contacts */
-let contactsList = []
+/* Middleware to logout */
+const logout = (req, res, next) => {
+  logged = false;
+  next();
+}
+
+/* Checks if the admin user is logged*/
+const isLogged = (req, res, next) => {
+  if(!logged) {
+    res.redirect('/login');
+  } else{
+    next();
+  }
+}
 
 /* GET home page. */
-router.get('/', (req, res, next) => {
-  delete user.username;
-  delete user.password;
-  console.log(user)
+router.get('/', logout, (req, res, next) => {
   res.render('home', { title: 'home' });
 });
 
 /* GET others pages. */
-router.get('/:page', ({params: { page }}, res, next) => {
+router.get('/:page', logout, ({params: { page }}, res, next) => {
   res.render(page, { title: page });
 });
 
-/* Middleware for authentication*/
-const requireAuthentication = (req, res, next) => {
-  if(!user.username || !user.password) {
-    res.redirect('../login')
-  }
-  next();
-}
-
-const createContactList = data => {
-  //database headers
-  const headers = data.split(EOL)[0].split(', ');
-
-  return data.split(EOL).slice(1).map(row => {
-    const values = row.split(', ');
-    return values.reduce((user, value, index) => {
-      return {
-        ...user,
-        [headers[index]]: value
-      }
-    }, {})
-  });
-}
-
-/* POST login page. */
-router.post('/login', ({ body: { username, password } }, res, next) => {
-  readFilePromise(`${__dirname}/../database.csv`, 'utf8')
-  .then(data => {
-    const isAdmin = createContactList(data).filter(user => {
-      return user.Password && user.ContactName === username && user.Password === password
-    }).length === 1;
-
-    if(isAdmin) {
-      user.username = username;
-      user.password = password;
-      res.redirect('users/business_contact_list');
+/* POST login */
+router.post('/login', (req, res, next) => {
+  const { body: { username, password } } = req;
+  const user = {
+    username,
+    password: hash.createHash('sha256').update(password).digest('hex')
+  };
+  User.find(user, (err, data) => {
+    if(err) next(err);
+    if([...data].length > 0) {
+      logged = true;
+      res.redirect('/user/business_contact_list');
     } else {
-      res.redirect('login');
+      res.redirect('/login');
     }
   })
-  .catch(next)
 })
 
 /* Control auth */
-router.all('/users/*', requireAuthentication)
+router.all('/user/business_contact_list', isLogged)
 
-/* GET business_contact_list page */
-router.get('/users/business_contact_list', (req , res, next) => {
-  readFilePromise(`${__dirname}/../database.csv`, 'utf8')
-  .then(data => {
-    contactsList = createContactList(data).filter(user => !user.Password)
-    contactsList.sort((a, b) => {
-      if (a.ContactName < b.ContactName){
-        return -1;
-      }
-      if (a.ContactName > b.ContactName){
-        return 1;
-      }
-      return 0;
-    })
-    res.render('business_contact_list', { title: 'business_contact_list', users: contactsList});
-  })
-  .catch(next)
-})
-
-const contactToString = list => {
-  return contactsList.reduce((str, contact) => {
-    return `${str}${EOL}${contact.ContactName}, ${contact.ContactNumber}, ${contact.EmailAddress}`
-  }, `ContactName, ContactNumber, EmailAddress, Password${EOL}Admin, 0, 0, admin`);
+/* Querying all the users from the database */
+const getAllUsers = () => {
+  return User.find({}).then(users => users.filter(user => user.username !== 'test'));
 }
 
-router.post('/users/business_contact_list', ({ body: { name, number, email, newName, newNumber, newEmail } } , res, next) => {
-  console.log(name, number, email, newName, newNumber, newEmail)
-  let contactToEditIndex;
-  contactsList.forEach((contact, index) => {
-    if(contact.ContactName === name &&
-      contact.ContactNumber === number &&
-      contact.EmailAddress === email) {
-      contactToEditIndex = index;
-    }
-  })
-
-  contactsList[contactToEditIndex].ContactName = newName;
-  contactsList[contactToEditIndex].ContactNumber = newNumber;
-  contactsList[contactToEditIndex].EmailAddress = newEmail;
-
-  writeFilePromise(`${__dirname}/../database.csv`, contactToString(contactsList), 'utf8')
-  .then(() => {
-    console.log(contactsList)
-    res.render('business_contact_list', { title: 'business_contact_list', users: contactsList});
-  })
-  .catch(next)
-})
-
-router.delete('/users/business_contact_list', ({ body: { name, number, email } } , res, next) => {
-  contactsList = contactsList.filter(contact => {
-    return contact.ContactName !== name || contact.ContactNumber !== number || contact.EmailAddress !== email;
-  })
-
-  writeFilePromise(`${__dirname}/../database.csv`, contactToString(contactsList), 'utf8')
-    .then(() => {
-      res.render('business_contact_list', { title: 'business_contact_list', users: contactsList});
+/* GET business_contact_list */
+router.get('/user/business_contact_list', (req, res, next) => {
+  getAllUsers()
+    .then(users => {
+      res.render('business_contact_list', { title: 'business_contact_list', users })
     })
     .catch(next)
+})
+
+/* DELETE user */
+router.delete('/user/business_contact_list', ({ body: { username } }, res, next) => {
+  User.findOneAndDelete({ username })
+    .then(() => getAllUsers())
+    .then(users => {
+      res.render('business_contact_list', { title: 'business_contact_list', users })
+    })
+    .catch(next);
+})
+
+/* GET edit page for the user */
+router.get('/user/business_contact_list/:username', (req, res, next) => {
+  res.render(`edit_user`, { title: req.params.username })
+})
+
+/* POST user */
+router.post('/user/business_contact_list/:username', (req, res, next) => {
+  const { params: { username } } = req;
+  const { body: { newUsername, newNumber, newEmail } } = req;
+
+  User.findOneAndUpdate(
+    { username },
+    { username: newUsername, number: parseInt(newNumber), email: newEmail },
+    err => {
+      if(err) next(err);
+      res.redirect('/user/business_contact_list');
+    });
+})
+
+/* DELETE user from edit page */
+router.delete('/user/business_contact_list/:username', ({ params: { username } }, res, next) => {
+  User.findOneAndDelete({ username }, err => {
+    if(err) next(err);
+    res.json({
+      url: '/user/business_contact_list'
+    })
+  });
 })
 
 module.exports = router;

@@ -12,16 +12,12 @@
     <tbody>
       <% for (let i = 0; i < users.length; i++) { %>
         <tr>
-          <td><%= users[i].ContactName %></td>
-          <td><%= users[i].ContactNumber %></td>
-          <td><%= users[i].EmailAddress %></td>
+          <td><%= users[i].username %></td>
+          <td><%= users[i].number %></td>
+          <td><%= users[i].email %></td>
           <td>
-            <a class="portfolio-link" data-toggle="modal" href="#edit_user">
-              <button class="btn btn-success edit-user"><i class="fas fa-edit"></i></button>
-            </a>
+            <button class="btn btn-success edit-user"><i class="fas fa-edit"></i></button>
             <button class="btn btn-danger delete-user"><i class="far fa-trash-alt"></i></button>
-            <!-- Modal -->
-            <% include users_table_modal %>
           </td>
         </tr>    
       <% } %>
