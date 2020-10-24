@@ -9,14 +9,12 @@ const update_btn = document.querySelector('.update-user');
 const edit_btns = document.querySelectorAll('.edit-user');
 const delete_btns = document.querySelectorAll('.delete-user');
 
-const contactToEdit = {};
-
 edit_btns.forEach(btn => {
   btn.addEventListener('click', () => {
     const row = btn.parentNode.parentNode;
     const data = [...row.children];
     contactToEdit.name = data[0].innerHTML,
-    window.location.href = `./business_contact_list/${contactToEdit.name}`;
+    window.location.href = `./business_contact_list/${data[0].innerHTML}`;
   })
 })
 
