@@ -7,10 +7,7 @@
 
 const { exports: exp } = module;
 const mongoose = require('mongoose');
-const promisify = require('util').promisify;
 
-exp.writeFile = promisify(require('fs').writeFile);
-exp.readFile = promisify(require('fs').readFile);
 exp.EOL = require('os').EOL;
 exp.hash = require('crypto');
 exp.mongoose = mongoose;
