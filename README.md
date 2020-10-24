@@ -1,6 +1,6 @@
 # personal-portfolio
 
-The website use a *local* MongoDB database called ``` users ```.
+The website use a **local** MongoDB database called ``` users ```.
 
 There is already a script to fill the database with 5 documents:
 
