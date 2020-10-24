@@ -8,7 +8,6 @@
 const { exports: exp } = module;
 const mongoose = require('mongoose');
 
-exp.EOL = require('os').EOL;
 exp.hash = require('crypto');
 exp.mongoose = mongoose;
 exp.dbConnection = mongoose.connect('mongodb://127.0.0.1/users', {
