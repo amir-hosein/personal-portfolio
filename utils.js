@@ -1,5 +1,5 @@
 /*
-  File name: edit_user.js
+  File name: utils.js
   Student: Amir Ghahremani
   Student id: 301073379
   Date: 23/10/2020
